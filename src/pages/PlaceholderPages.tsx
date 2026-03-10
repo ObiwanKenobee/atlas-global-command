@@ -12,13 +12,6 @@ const PlaceholderPage = ({ title, description }: { title: string; description: s
   </div>
 );
 
-export const MemoryPage = () => (
-  <PlaceholderPage
-    title="Historical Memory Engine"
-    description="Explore prior incidents, interventions, and long-term outcomes. Reason through historical analogy to inform current decisions."
-  />
-);
-
 export const CoordinationPage = () => (
   <PlaceholderPage
     title="Coordination Hub"
