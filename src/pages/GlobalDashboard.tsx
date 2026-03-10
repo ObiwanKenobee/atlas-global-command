@@ -7,6 +7,8 @@ import { InspectorPanel } from "@/components/atlas/InspectorPanel";
 import { SystemStressIndicator } from "@/components/atlas/SystemStressIndicator";
 import { ExplainabilityDrawer } from "@/components/atlas/ExplainabilityDrawer";
 import { ConfidenceBadge } from "@/components/atlas/ConfidenceBadge";
+import { MapHotspots, defaultHotspots } from "@/components/atlas/MapHotspots";
+import { ForecastChart } from "@/components/atlas/ForecastChart";
 import worldMap from "@/assets/world-map.jpg";
 import { Layers, Filter, Maximize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,52 +17,27 @@ const signals = [
   {
     title: "Cascading grid failure risk — South Asia",
     description: "Anomalous load patterns detected across interconnected power grids in India and Bangladesh. Heatwave amplifying demand beyond forecasted capacity.",
-    severity: "critical" as const,
-    domain: "Infrastructure",
-    region: "South Asia",
-    confidence: "high" as const,
-    timestamp: "12m ago",
-    isLive: true,
+    severity: "critical" as const, domain: "Infrastructure", region: "South Asia", confidence: "high" as const, timestamp: "12m ago", isLive: true,
   },
   {
     title: "Supply chain disruption — Rare earth minerals",
     description: "Export restrictions and mining slowdowns creating bottleneck in semiconductor supply chain. 3 downstream industries affected.",
-    severity: "high" as const,
-    domain: "Economy",
-    region: "East Asia",
-    confidence: "medium" as const,
-    timestamp: "1h ago",
-    isLive: true,
+    severity: "high" as const, domain: "Economy", region: "East Asia", confidence: "medium" as const, timestamp: "1h ago", isLive: true,
   },
   {
     title: "Coral bleaching event — Great Barrier Reef",
     description: "Sea surface temperature anomaly exceeding 2°C threshold. Fourth mass bleaching event in seven years detected via satellite.",
-    severity: "high" as const,
-    domain: "Ecosystem",
-    region: "Oceania",
-    confidence: "high" as const,
-    timestamp: "3h ago",
-    isLive: false,
+    severity: "high" as const, domain: "Ecosystem", region: "Oceania", confidence: "high" as const, timestamp: "3h ago", isLive: false,
   },
   {
     title: "Fiscal stress indicators — European sovereigns",
     description: "Bond spread widening across peripheral economies. Debt-to-GDP trajectory diverging from sustainability framework thresholds.",
-    severity: "medium" as const,
-    domain: "Economy",
-    region: "Europe",
-    confidence: "medium" as const,
-    timestamp: "6h ago",
-    isLive: false,
+    severity: "medium" as const, domain: "Economy", region: "Europe", confidence: "medium" as const, timestamp: "6h ago", isLive: false,
   },
   {
     title: "Antimicrobial resistance surge — West Africa",
     description: "Hospital surveillance data indicating 40% increase in resistant infections. WHO threshold exceeded in 3 countries.",
-    severity: "medium" as const,
-    domain: "Health",
-    region: "West Africa",
-    confidence: "low" as const,
-    timestamp: "8h ago",
-    isLive: false,
+    severity: "medium" as const, domain: "Health", region: "West Africa", confidence: "low" as const, timestamp: "8h ago", isLive: false,
   },
 ];
 
@@ -82,23 +59,33 @@ const timelineEvents = [
   { time: "12:00", label: "Partial stabilization", type: "outcome" as const },
 ];
 
+const inspectorForecastData = [
+  { month: "Jan", actual: 32, forecast: 32 },
+  { month: "Feb", actual: 38, forecast: 36 },
+  { month: "Mar", actual: 45, forecast: 42, upper: 50, lower: 34 },
+  { month: "Apr", actual: 56, forecast: 51, upper: 62, lower: 40 },
+  { month: "May", actual: 68, forecast: 63, upper: 76, lower: 50 },
+  { month: "Jun", forecast: 74, upper: 88, lower: 60 },
+  { month: "Jul", forecast: 82, upper: 96, lower: 68 },
+  { month: "Aug", forecast: 78, upper: 94, lower: 62 },
+];
+
 export default function GlobalDashboard() {
   const [inspectorOpen, setInspectorOpen] = useState(true);
   const [selectedSignal, setSelectedSignal] = useState(signals[0]);
 
   return (
     <div className="flex h-full">
-      {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Metrics Row */}
         <div className="flex-shrink-0 p-4 pb-0">
           <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2">
-            <MetricCard label="Active Signals" value="247" change={12} variant="signal" />
-            <MetricCard label="Critical Risks" value="8" change={3} variant="crimson" />
-            <MetricCard label="Active Missions" value="14" variant="default" />
-            <MetricCard label="System Stress" value="67" unit="avg" change={5} variant="amber" />
-            <MetricCard label="Simulations Run" value="1,247" variant="teal" />
-            <MetricCard label="Confidence Avg" value="72" unit="%" change={-2} variant="default" />
+            <MetricCard label="Active Signals" value="247" change={12} variant="signal" sparklineData={[180, 195, 210, 205, 220, 235, 230, 247]} />
+            <MetricCard label="Critical Risks" value="8" change={3} variant="crimson" sparklineData={[3, 4, 5, 4, 6, 5, 7, 8]} />
+            <MetricCard label="Active Missions" value="14" variant="default" sparklineData={[10, 11, 12, 11, 13, 12, 13, 14]} />
+            <MetricCard label="System Stress" value="67" unit="avg" change={5} variant="amber" sparklineData={[52, 55, 58, 61, 59, 63, 65, 67]} />
+            <MetricCard label="Simulations Run" value="1,247" variant="teal" sparklineData={[800, 850, 920, 980, 1050, 1100, 1180, 1247]} />
+            <MetricCard label="Confidence Avg" value="72" unit="%" change={-2} variant="default" sparklineData={[78, 76, 75, 74, 73, 74, 73, 72]} />
           </div>
         </div>
 
@@ -111,8 +98,24 @@ export default function GlobalDashboard() {
               alt="Global situational awareness map showing active signals and risk regions"
               className="absolute inset-0 w-full h-full object-cover opacity-90"
             />
+
+            {/* Interactive hotspots */}
+            <MapHotspots
+              hotspots={defaultHotspots}
+              onHotspotClick={(hotspot) => {
+                const matchedSignal = signals.find((s) =>
+                  s.region.toLowerCase().includes(hotspot.label.toLowerCase().split(" ")[0]) ||
+                  hotspot.signalTitle.toLowerCase().includes(s.title.toLowerCase().split("—")[0].trim().split(" ").slice(-2).join(" ").toLowerCase())
+                );
+                if (matchedSignal) {
+                  setSelectedSignal(matchedSignal);
+                }
+                setInspectorOpen(true);
+              }}
+            />
+
             {/* Map overlay controls */}
-            <div className="absolute top-3 left-3 flex gap-1.5 z-10">
+            <div className="absolute top-3 left-3 flex gap-1.5 z-20">
               <Button variant="outline" size="sm" className="bg-card/80 backdrop-blur-sm border-border">
                 <Layers className="h-3 w-3 mr-1" />
                 Layers
@@ -122,14 +125,14 @@ export default function GlobalDashboard() {
                 Filter
               </Button>
             </div>
-            <div className="absolute top-3 right-3 z-10">
+            <div className="absolute top-3 right-3 z-20">
               <Button variant="outline" size="icon-sm" className="bg-card/80 backdrop-blur-sm border-border">
                 <Maximize2 className="h-3 w-3" />
               </Button>
             </div>
 
             {/* Live indicator */}
-            <div className="absolute bottom-3 left-3 flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-md px-2.5 py-1 border border-border z-10">
+            <div className="absolute bottom-3 left-3 flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-md px-2.5 py-1 border border-border z-20">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-signal-pulse" />
               <span className="text-[10px] font-heading text-foreground uppercase tracking-wider">Live Feed</span>
               <span className="text-[10px] text-muted-foreground">247 active signals</span>
@@ -177,7 +180,6 @@ export default function GlobalDashboard() {
         subtitle={selectedSignal.domain}
       >
         <div className="space-y-4">
-          {/* Signal Details */}
           <div>
             <p className="text-xs text-foreground mb-2">{selectedSignal.description}</p>
             <div className="flex items-center gap-2 flex-wrap">
@@ -187,7 +189,9 @@ export default function GlobalDashboard() {
             </div>
           </div>
 
-          {/* System Stress */}
+          {/* Forecast chart */}
+          <ForecastChart data={inspectorForecastData} title="Stress Trajectory & Forecast" />
+
           <div>
             <h4 className="text-[10px] font-heading uppercase tracking-wider text-muted-foreground mb-2">Affected Systems</h4>
             <div className="space-y-2.5">
@@ -198,7 +202,6 @@ export default function GlobalDashboard() {
             </div>
           </div>
 
-          {/* Explainability */}
           <div>
             <h4 className="text-[10px] font-heading uppercase tracking-wider text-muted-foreground mb-2">AI Analysis</h4>
             <ExplainabilityDrawer
@@ -217,7 +220,6 @@ export default function GlobalDashboard() {
             />
           </div>
 
-          {/* Active Missions */}
           <div>
             <h4 className="text-[10px] font-heading uppercase tracking-wider text-muted-foreground mb-2">Linked Missions</h4>
             <div className="space-y-2">

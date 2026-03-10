@@ -4,13 +4,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/atlas/AppShell";
+import { CommandPalette } from "@/components/atlas/CommandPalette";
 import GlobalDashboard from "./pages/GlobalDashboard";
 import SignalsPage from "./pages/SignalsPage";
 import RisksPage from "./pages/RisksPage";
 import MissionsPage from "./pages/MissionsPage";
 import SimulationPage from "./pages/SimulationPage";
 import WorldModelPage from "./pages/WorldModelPage";
-import { MemoryPage, CoordinationPage, OversightPage } from "./pages/PlaceholderPages";
+import MemoryPage from "./pages/MemoryPage";
+import { CoordinationPage, OversightPage } from "./pages/PlaceholderPages";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -21,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <CommandPalette />
         <AppShell>
           <Routes>
             <Route path="/" element={<GlobalDashboard />} />
