@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        heading: ['"Source Code Pro"', "monospace"],
+        body: ['"Inter Variable"', '"Inter"', "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        atlas: {
+          "deep-space": "hsl(var(--deep-space))",
+          "panel-matte": "hsl(var(--panel-matte))",
+          "panel-raised": "hsl(var(--panel-raised))",
+          "trace-line": "hsl(var(--trace-line))",
+          signal: "hsl(var(--signal-blue))",
+          amber: "hsl(var(--amber-haze))",
+          teal: "hsl(var(--sim-teal))",
+          crimson: "hsl(var(--crimson-warning))",
+          chalk: "hsl(var(--text-primary))",
+          ash: "hsl(var(--text-secondary))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,20 +81,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
