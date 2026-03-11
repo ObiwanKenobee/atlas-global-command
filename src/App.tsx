@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/atlas/AppShell";
 import { CommandPalette } from "@/components/atlas/CommandPalette";
+import { FilterProvider } from "@/components/atlas/FilterContext";
 import GlobalDashboard from "./pages/GlobalDashboard";
 import SignalsPage from "./pages/SignalsPage";
 import RisksPage from "./pages/RisksPage";
