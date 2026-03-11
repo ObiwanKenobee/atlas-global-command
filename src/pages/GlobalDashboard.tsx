@@ -90,7 +90,7 @@ export default function GlobalDashboard() {
         </div>
 
         {/* Map + Signals */}
-        <div className="flex-1 flex min-h-0 p-4 gap-4">
+        <div className="flex-1 flex flex-col lg:flex-row min-h-0 p-4 gap-4">
           {/* Map */}
           <div className="flex-1 relative rounded-lg border border-border overflow-hidden bg-card min-w-0">
             <img
