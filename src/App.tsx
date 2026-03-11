@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppShell } from "@/components/atlas/AppShell";
 import { CommandPalette } from "@/components/atlas/CommandPalette";
+import { FilterProvider } from "@/components/atlas/FilterContext";
 import GlobalDashboard from "./pages/GlobalDashboard";
 import SignalsPage from "./pages/SignalsPage";
 import RisksPage from "./pages/RisksPage";
@@ -24,21 +25,23 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <CommandPalette />
-        <AppShell>
-          <Routes>
-            <Route path="/" element={<GlobalDashboard />} />
-            <Route path="/signals" element={<SignalsPage />} />
-            <Route path="/risks" element={<RisksPage />} />
-            <Route path="/missions" element={<MissionsPage />} />
-            <Route path="/simulation" element={<SimulationPage />} />
-            <Route path="/world-model" element={<WorldModelPage />} />
-            <Route path="/memory" element={<MemoryPage />} />
-            <Route path="/coordination" element={<CoordinationPage />} />
-            <Route path="/oversight" element={<OversightPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AppShell>
+        <FilterProvider>
+          <CommandPalette />
+          <AppShell>
+            <Routes>
+              <Route path="/" element={<GlobalDashboard />} />
+              <Route path="/signals" element={<SignalsPage />} />
+              <Route path="/risks" element={<RisksPage />} />
+              <Route path="/missions" element={<MissionsPage />} />
+              <Route path="/simulation" element={<SimulationPage />} />
+              <Route path="/world-model" element={<WorldModelPage />} />
+              <Route path="/memory" element={<MemoryPage />} />
+              <Route path="/coordination" element={<CoordinationPage />} />
+              <Route path="/oversight" element={<OversightPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AppShell>
+        </FilterProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

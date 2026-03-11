@@ -90,9 +90,9 @@ export default function GlobalDashboard() {
         </div>
 
         {/* Map + Signals */}
-        <div className="flex-1 flex min-h-0 p-4 gap-4">
+        <div className="flex-1 flex flex-col lg:flex-row min-h-0 p-4 gap-4">
           {/* Map */}
-          <div className="flex-1 relative rounded-lg border border-border overflow-hidden bg-card min-w-0">
+          <div className="flex-1 relative rounded-lg border border-border overflow-hidden bg-card min-w-0 min-h-[200px]">
             <img
               src={worldMap}
               alt="Global situational awareness map showing active signals and risk regions"
@@ -140,7 +140,7 @@ export default function GlobalDashboard() {
           </div>
 
           {/* Signal Feed */}
-          <div className="w-80 flex-shrink-0 flex flex-col min-h-0">
+          <div className="w-full lg:w-80 flex-shrink-0 flex flex-col min-h-0 max-h-64 lg:max-h-none">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-xs font-heading font-semibold uppercase tracking-wider text-foreground">Priority Signals</h3>
               <span className="text-[10px] text-muted-foreground">5 of 247</span>
