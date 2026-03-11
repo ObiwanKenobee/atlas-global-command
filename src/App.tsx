@@ -25,21 +25,23 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <CommandPalette />
-        <AppShell>
-          <Routes>
-            <Route path="/" element={<GlobalDashboard />} />
-            <Route path="/signals" element={<SignalsPage />} />
-            <Route path="/risks" element={<RisksPage />} />
-            <Route path="/missions" element={<MissionsPage />} />
-            <Route path="/simulation" element={<SimulationPage />} />
-            <Route path="/world-model" element={<WorldModelPage />} />
-            <Route path="/memory" element={<MemoryPage />} />
-            <Route path="/coordination" element={<CoordinationPage />} />
-            <Route path="/oversight" element={<OversightPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AppShell>
+        <FilterProvider>
+          <CommandPalette />
+          <AppShell>
+            <Routes>
+              <Route path="/" element={<GlobalDashboard />} />
+              <Route path="/signals" element={<SignalsPage />} />
+              <Route path="/risks" element={<RisksPage />} />
+              <Route path="/missions" element={<MissionsPage />} />
+              <Route path="/simulation" element={<SimulationPage />} />
+              <Route path="/world-model" element={<WorldModelPage />} />
+              <Route path="/memory" element={<MemoryPage />} />
+              <Route path="/coordination" element={<CoordinationPage />} />
+              <Route path="/oversight" element={<OversightPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AppShell>
+        </FilterProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
