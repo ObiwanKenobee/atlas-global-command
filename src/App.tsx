@@ -12,7 +12,8 @@ import MissionsPage from "./pages/MissionsPage";
 import SimulationPage from "./pages/SimulationPage";
 import WorldModelPage from "./pages/WorldModelPage";
 import MemoryPage from "./pages/MemoryPage";
-import { CoordinationPage, OversightPage } from "./pages/PlaceholderPages";
+import CoordinationPage from "./pages/CoordinationPage";
+import OversightPage from "./pages/OversightPage";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
