@@ -92,7 +92,7 @@ export default function GlobalDashboard() {
         {/* Map + Signals */}
         <div className="flex-1 flex flex-col lg:flex-row min-h-0 p-4 gap-4">
           {/* Map */}
-          <div className="flex-1 relative rounded-lg border border-border overflow-hidden bg-card min-w-0">
+          <div className="flex-1 relative rounded-lg border border-border overflow-hidden bg-card min-w-0 min-h-[200px]">
             <img
               src={worldMap}
               alt="Global situational awareness map showing active signals and risk regions"
